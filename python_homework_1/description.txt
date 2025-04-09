@@ -1,0 +1,51 @@
+import json         # Wir möchten dass das Modul JSON Dateien lesen und schreiben kann
+import os           # Dadurch kann das Modul auf das Dateisystem zugreifen, damit alle Dateien in einem Ordner aufgelistet werden können.
+
+
+def read_json_files():      # Erstellt eine Funktion mit dem Namen read_json_files
+    team_data = {}          # Erstellt ein leeres Dictonary, in welchem später die JSON Files abgelegt werden
+    
+    # Alle JSON-Dateien im aktuellen Verzeichnis suchen
+    json_files = [f for f in os.listdir() if f.endswith(".json") and "_" in f]      
+    # os.listdir() listet alle Dateien im aktuellen Verzeichnis auf
+    # if f. endswith("json") filtert nur Dateien welche auf .json enden 
+    # and "_" in f stellt sicher, dass die Dateien einen Unterstrich im Namen tragen
+    # json_files speichert alle pssenden Dateien als Liste
+
+    
+    for file in json_files:                                                 # geht jede Datei in der Liste json_files durch
+        with open(file, "r", encoding="utf-8") as f:                        # öffnet die Datei im Lesen-Modus ("r") mit utf-8 Kodierung und "with" stellt dabei sicher, dass die Datei nach dem Lesen geschlossen wird
+            try:
+                data = json.load(f)                                         # liest den json Inhalt der Datei und speichert ihn in "data"
+                team_data[file] = data                                      # das speichert die Daten im "team_data" Dictonary, der Dateiname ist der Schlüssel
+            except json.JSONDecodeError:                                    # falls ein Error beim Lesen der Datei auftritt, wird eine Fehlermeldung ausgegeben
+                print(f"Fehler beim Lesen von {file}")                      # gibt dem User den fehler in der Konsole zurück
+    
+    return team_data                                                        # das Dictonary mit allen json Daten wird an den Aufrufer zurückgegeben
+
+def write_combined_json(team_data):                                         # erstellt eine neue Funktion, die die gesammelte Daten in eine neue Datei schreibt
+    if not team_data:                                                       # falls das leer ist, gibt das programm eine Nachricht aus und beendet die Funktion mit return
+        print("Keine gültigen JSON-Dateien gefunden.")
+        return              
+    
+    # Namen aus den Dateien extrahieren
+    team_names = "_".join([name.split("_")[0] for name in team_data.keys()])            
+    # team_data.keys() holt alle dateinamen aus dem Dictonary
+    # name.split("_")[0] nimmt den Vornamen aus dem Dateinamen
+    # "_".join([...]) verbindet alle Vornamen mit einem Unterstrich
+
+    output_filename = f"team_{team_names}.json"                               # erstellt den Dateinamen aus den Vornamen
+    
+
+    output_path = os.path.join(os.getcwd(), output_filename)                  # Datei im aktuellen Verzeichnis speichern
+
+    
+    with open(output_path, "w", encoding="utf-8") as f:                       # öffnet die Datei zum schreiben ("w") 
+        json.dump(team_data, f, indent=4)                                     # schreibt die json Daten formatiert in die Datei
+    
+    print(f"Zusammengeführte JSON-Datei gespeichert als {output_path}")       # gibt eine Nachricht aus, dass die Datei erolfgreich gespeichert wurde
+    print(json.dumps(team_data, indent=4))                                    # gibt die json Daten formatiert im Terminal aus
+
+if __name__ == "__main__":                                                    # stellt sicher, dass das Skript nur ausgeführt wird, wenn es direkt gestartet wird
+    team_data = read_json_files()                                             # lädt alle json Datein 
+    write_combined_json(team_data)                                            # schreibt die gesammelten Daten in eine neue Datei

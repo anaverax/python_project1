@@ -1,0 +1,22 @@
+[
+    {
+        "author": "Florian Dalwigk",
+        "title": "Python f\u00fcr Einsteiger",
+        "year": "2022"
+    },
+    {
+        "author": "Mark Lutz",
+        "title": "Learing Python",
+        "year": "2013"
+    },
+    {
+        "author": "Michael T. Goodrich et. al.",
+        "title": "Data Structures and Algorithms in Python",
+        "year": "2013"
+    },
+    {
+        "author": "Wesley J. Chun",
+        "title": "Core Python Applications Programming, 3rd ed.",
+        "year": "2012"
+    }
+]

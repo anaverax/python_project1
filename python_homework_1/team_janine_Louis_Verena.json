@@ -1,0 +1,17 @@
+{
+    "janine_heinl.json": {
+        "Name": "Janine Heinl",
+        "Email": "janine.heinl@stud.th-deg.de",
+        "Course": "CY-2"
+    },
+    "Louis_Braun.json": {
+        "Name": "Louis Braun",
+        "Email": "louis.braun@stud.th-deg.de",
+        "Course": "CY-2"
+    },
+    "Verena_Schober.json": {
+        "Name": "Verena Schober",
+        "Email": "verena.schober@stud.th-deg.de",
+        "Course": "CY-2"
+    }
+}
